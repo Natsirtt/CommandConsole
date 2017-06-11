@@ -11,5 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 455ab57f3a3e4c446aba7f13450f7dee, type: 3}
   m_Name: CommandConsoleSettings
   m_EditorClassIdentifier: 
+  _RerouteDebugLog: 1
   _OpenConsoleKey: 267
   _CloseConsoleKey: 267
