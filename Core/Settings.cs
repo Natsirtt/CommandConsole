@@ -11,6 +11,11 @@ namespace RTM.CommandConsole
 {
 	public class Settings : ScriptableObject
 	{
+        [Header("Logging")]
+        [SerializeField]
+        private bool _RerouteDebugLog = false;
+        public static bool RerouteDebugLog { get { return Instance._RerouteDebugLog; } }
+
 		[Header("Control Keys")]
 		[SerializeField]
 		private KeyCode _OpenConsoleKey = KeyCode.KeypadDivide;

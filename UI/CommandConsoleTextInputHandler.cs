@@ -54,6 +54,8 @@ namespace RTM.CommandConsole.UI
 
 		private EBrowseMode BrowseMode = EBrowseMode.None;
 		private int BrowseIdx = -1;
+
+        private bool wasReroutingLogs = false;
 		
 		private EventSystem GetEventSystem()
 		{
@@ -80,6 +82,16 @@ namespace RTM.CommandConsole.UI
 		void Update()
 		{
 			Assert.IsTrue(EditMode == EEditMode.User);
+
+            if (!wasReroutingLogs && Settings.RerouteDebugLog)
+            {
+                Application.logMessageReceived += OnUnityLog;
+                wasReroutingLogs = true;
+            } else if (wasReroutingLogs && !Settings.RerouteDebugLog)
+            {
+                Application.logMessageReceived -= OnUnityLog;
+                wasReroutingLogs = false;
+            }
 
 			if(!InputText.isFocused)
 				SetFocus();
@@ -351,6 +363,10 @@ namespace RTM.CommandConsole.UI
 
 			CommandHistory.Clear();
 		}
+
+        private void OnUnityLog(string log, string stackTrace, LogType type) {
+            Output("[" + type + "] " + log + Environment.NewLine);
+        }
 
 		private void Output(string value)
 		{
